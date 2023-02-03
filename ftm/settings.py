@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = 'django-insecure-fhl177mb=a)9_u$8b7@j45gfw8^_mqvm)ho$%xr86f$=1yuo7r'
+# SECRET_KEY = 'django-insecure-fhl177mb=a)9_u$8b7@j45gfw8^_mqvm)ho$%xr86f$=1yuo7r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == '1'
@@ -85,6 +85,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "tasks.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
