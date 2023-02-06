@@ -1,4 +1,4 @@
-# Project Title: "Family Task Manager"
+# Project Title: Family Task Manager
 
 ### Objective: To create a web platform that allows parents to assign chores and responsibilities to their children and reward them for completion.
 
