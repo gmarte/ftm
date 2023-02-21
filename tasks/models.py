@@ -18,11 +18,10 @@ class User(AbstractUser):
 # endregion
 
 # region tasks
-
-
 class Child(models.Model):
     name = models.CharField(max_length=100)
     points = models.PositiveIntegerField(default=0)
+    parent = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -31,11 +30,11 @@ class Child(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=100)
     points = models.PositiveIntegerField()
-    assigned_to = models.ForeignKey(Child, on_delete=models.CASCADE)
+    assigned_to = models.ForeignKey(Child, related_name='tasks', on_delete=models.CASCADE)    
     is_recurring = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.name + '('+self.points+')'
 
 
 class WeeklyTaskCompletion(models.Model):
@@ -60,12 +59,9 @@ class Reward(models.Model):
 
     def __str__(self):
         return self.name
-
 # endregion
 
 # region badges
-
-
 class Badge(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()

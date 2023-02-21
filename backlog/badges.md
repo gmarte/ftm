@@ -1,6 +1,6 @@
 # List of badges
 
-- Clean Sweep: Earned for completing all the chores i a week.
+- Clean Sweep: Earned for completing all the chores in a week.
 - Early Bird: Earned for completing all the chores before a certain time of day.
 - Overachiever: Earned for completing all the recurring chores for a month.
 - Adventurer: Earned for trying a new chore or activity.
