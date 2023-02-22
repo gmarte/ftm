@@ -11,10 +11,7 @@ class User(AbstractUser):
     avatar = models.URLField(null=True)
 
     def __str__(self):
-        return self.username
-
-    def get_absolute_url(self):
-        return reverse("user_detail", kwargs={"username": self.username})
+        return self.username    
 # endregion
 
 # region tasks
@@ -34,7 +31,7 @@ class Task(models.Model):
     is_recurring = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name + '('+self.points+')'
+        return self.name + '('+str(self.points)+')'
 
 
 class WeeklyTaskCompletion(models.Model):

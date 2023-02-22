@@ -3,6 +3,7 @@ from django.test import TestCase
 # Create your tests here.
 from django.urls import reverse
 from .models import User, Child, Task, WeeklyTaskCompletion, Reward
+import datetime
 
 class ModelsTest(TestCase):
 
@@ -36,11 +37,7 @@ class ModelsTest(TestCase):
         )
 
     def test_user_str(self):
-        self.assertEqual(str(self.user), self.user.username)
-
-    def test_user_absolute_url(self):
-        url = reverse('user_detail', kwargs={'username': self.user.username})
-        self.assertEqual(self.user.get_absolute_url(), url)
+        self.assertEqual(str(self.user), self.user.username)    
 
     def test_child_str(self):
         self.assertEqual(str(self.child), self.child.name)
