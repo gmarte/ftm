@@ -25,15 +25,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'tasks',
+    'django.contrib.staticfiles', # required for serving swagger ui's css/js files
+    'tasks',    
     'rest_framework',
+    'rest_framework.authtoken',    
+    'rest_auth',
     'import_export',         
     'django.contrib.sites',    
-    'allauth',
+    'allauth',    
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'rest_auth.registration',        
+    'drf_yasg',    
 ]
 
 SITE_ID = 1
