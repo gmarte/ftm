@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'rest_auth.registration',        
     'drf_yasg',    
+    'corsheaders'
 ]
 
 SITE_ID = 1
@@ -45,6 +46,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -89,6 +91,13 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',    
 ]
+
+#Whitelisting React fronend
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'http://127.0.0.1:3000',
+)
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

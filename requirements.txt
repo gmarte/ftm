@@ -9,6 +9,7 @@ defusedxml==0.7.1
 diff-match-patch==20200713
 Django==4.1.6
 django-allauth==0.52.0
+django-cors-headers==3.14.0
 django-dotenv==1.4.2
 django-import-export==3.0.2
 django-rest-auth-forked==0.9.5
