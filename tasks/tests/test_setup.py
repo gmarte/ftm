@@ -1,35 +1,16 @@
-from django.contrib import admin
-from django.urls import include, path, re_path
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
+from rest_framework.test import APITestCase
+from django.urls import reverse
 
-schema_view = get_schema_view(
-   openapi.Info(
-      title="FTM API",
-      default_version='v1',
-      description="FTM API's",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="me@gmarte.com"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
-)
-
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')), # oauth config
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path("", include("tasks.urls")),
-    re_path('api/api.json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    re_path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    re_path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),   
-]
-
-# region res_auth.urls
+class TestSetUp(APITestCase):
+    def setUp(self):
+        self.register_url= reverse('rest_register')
+        self.login_url = reverse('rest_login')
+        self.password_reset_url = reverse('rest_password_reset')
+        self.password_reset_confirm_url = reverse('rest_password_reset_confirm')
+        self.logout_url = reverse('rest_logout')
+        self.user_details_url = reverse('rest_user_details')
+        self.rest_password_change_url = reverse('rest_password_change')
+        # region res_auth.urls
 # urlpatterns = [
 #     # URLs that do not require a session or valid token
 #     url(r'^password/reset/$', PasswordResetView.as_view(),
@@ -65,3 +46,14 @@ urlpatterns = [
 #         name='account_confirm_email'),
 # ]
 # endregion
+
+        self.user_data = {
+            "username": "gizzy",
+            "password": "gizzy123",
+            "password1": "gizzy123",
+            "password2": "gizzy123",
+            "email": "sJN8UgPRPpgInL@sLxszDPLkLlbrvvwgQPAdZVbmeMw.slbb"
+        }
+        return super().setUp()
+    def tearDown(self):
+        return super().tearDown

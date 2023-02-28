@@ -1,12 +1,13 @@
 from django.test import TestCase
+from .test_setup import TestSetUp
 
 # Create your tests here.
 from django.urls import reverse
-from .models import User, Child, Task, WeeklyTaskCompletion, Reward
+from rest_framework.test import APITestCase
+from ..models import User, Child, Task, WeeklyTaskCompletion, Reward
 import datetime
 
-class ModelsTest(TestCase):
-
+class ModelsTest(TestSetUp):
     def setUp(self):
         self.user = User.objects.create_user(
             username='testuser',
