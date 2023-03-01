@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Footer, Header, Dashboard } from './containers';
-import { Task, Navbar, Badge, Login } from './components';
+import { Footer, Header, Dashboard, Brand } from './containers';
+import { Task, Navbar, Badge } from './components';
 import './App.css';
 
 const App = () => {
@@ -9,9 +9,9 @@ const App = () => {
     <div className='App'>      
       <div className='gradient__bg'>
         <Navbar />
-        <Header />
-        <Login />
+        <Header />        
       </div>
+      <Brand />
       <Task />    
       <Footer />      
     </div>

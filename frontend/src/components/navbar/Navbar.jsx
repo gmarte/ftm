@@ -13,7 +13,7 @@ const Menu = () => (
   </>
 )
 const Navbar = () => {
-  const [toogleMenu, setToogleMenu] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
   return (
     <div className='ftm__navbar'>
       <div className='ftm__navbar-links'>        
@@ -29,11 +29,11 @@ const Navbar = () => {
         <button type="button">Sign up</button>
       </div>
       <div className='ftm__navbar-menu'>
-        {toogleMenu
-        ? <RiCloseLine color='#fff' size={27} onClick={() => setToogleMenu(false)} />
-        : <RiMenu3Line color='#fff' size={27} onClick={() => setToogleMenu(true)} />
+        {toggleMenu
+        ? <RiCloseLine color='#fff' size={27} onClick={() => setToggleMenu(false)} />
+        : <RiMenu3Line color='#fff' size={27} onClick={() => setToggleMenu(true)} />
         }
-        {toogleMenu && (
+        {toggleMenu && (
           <div className='ftm__navbar-menu_container scale-up-center'>
             <div className='ftm__navbar-menu_container-links'>
               <Menu />
