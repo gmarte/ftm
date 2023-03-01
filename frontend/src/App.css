@@ -13,26 +13,47 @@ a {
     text-decoration: none;
 }
 
-.gradient__bg {
+/*orange -> green */
+.gradient__bg2 {
 
-    /* ff 3.6+ */
-    background:-moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 88, 1) 0%, rgba(4, 12, 24, 1) 100%);
+  /* ff 3.6+ */
+  background:-moz-radial-gradient(circle at 3% 25%, rgba(242, 183, 18, 1) 0%, rgba(55, 171, 90, 1) 100%);
 
-    /* safari 5.1+,chrome 10+ */
-    background:-webkit-radial-gradient(circle at 3% 25%, rgba(0, 40, 88, 1) 0%, rgba(4, 12, 24, 1) 100%);
+  /* safari 5.1+,chrome 10+ */
+  background:-webkit-radial-gradient(circle at 3% 25%, rgba(242, 183, 18, 1) 0%, rgba(55, 171, 90, 1) 100%);
 
-    /* opera 11.10+ */
-    background:-o-radial-gradient(circle at 3% 25%, rgba(0, 40, 88, 1) 0%, rgba(4, 12, 24, 1) 100%);
+  /* opera 11.10+ */
+  background:-o-radial-gradient(circle at 3% 25%, rgba(242, 183, 18, 1) 0%, rgba(55, 171, 90, 1) 100%);
 
-    /* ie 10+ */
-    background:-ms-radial-gradient(circle at 3% 25%, rgba(0, 40, 88, 1) 0%, rgba(4, 12, 24, 1) 100%);
+  /* ie 10+ */
+  background:-ms-radial-gradient(circle at 3% 25%, rgba(242, 183, 18, 1) 0%, rgba(55, 171, 90, 1) 100%);
 
-    /* global 92%+ browsers support */
-    background:radial-gradient(circle at 3% 25%, rgba(0, 40, 88, 1) 0%, rgba(4, 12, 24, 1) 100%);
+  /* global 92%+ browsers support */
+  background:radial-gradient(circle at 3% 25%, rgba(242, 183, 18, 1) 0%, rgba(55, 171, 90, 1) 100%);
 
 }
+/* green -> orange */
+.gradient__bg{
 
-gradient__text{
+  /* ff 3.6+ */
+  background:-moz-radial-gradient(circle at 3% 25%, rgba(55, 171, 84, 1) 0%, rgba(241, 182, 11, 1) 100%);
+
+  /* safari 5.1+,chrome 10+ */
+  background:-webkit-radial-gradient(circle at 3% 25%, rgba(55, 171, 84, 1) 0%, rgba(241, 182, 11, 1) 100%);
+
+  /* opera 11.10+ */
+  background:-o-radial-gradient(circle at 3% 25%, rgba(55, 171, 84, 1) 0%, rgba(241, 182, 11, 1) 100%);
+
+  /* ie 10+ */
+  background:-ms-radial-gradient(circle at 3% 25%, rgba(55, 171, 84, 1) 0%, rgba(241, 182, 11, 1) 100%);
+
+  /* global 92%+ browsers support */
+  background:radial-gradient(circle at 3% 25%, rgba(55, 171, 84, 1) 0%, rgba(241, 182, 11, 1) 100%);
+
+}
+   
+
+.gradient__text{
     background: var(--gradient-text);
     background-clip: text;
     -webkit-background-clip: text;

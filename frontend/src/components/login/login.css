@@ -1,7 +1,22 @@
-.divider:after,
-.divider:before {
-  content: "";
+.ftm__login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 6rem;
+}
+
+.ftm__login-hero{
   flex: 1;
-  height: 1px;
-  background: #eee;
+  display: flex;    
+  justify-content: flex-start;
+  align-items: center;    
+}
+
+.ftm__login-hero_image{
+  margin-right: 2rem;
+}
+
+.ftm__login-hero_image img{
+  width: 480.00px;
+  height: 480.00px;
 }
