@@ -10,6 +10,7 @@ class TestSetUp(APITestCase):
         self.logout_url = reverse('rest_logout')
         self.user_details_url = reverse('rest_user_details')
         self.rest_password_change_url = reverse('rest_password_change')
+        self.createlist_child = reverse('child_list')
         # region res_auth.urls
 # urlpatterns = [
 #     # URLs that do not require a session or valid token
@@ -54,6 +55,9 @@ class TestSetUp(APITestCase):
             "password2": "gizzy123",
             "email": "sJN8UgPRPpgInL@sLxszDPLkLlbrvvwgQPAdZVbmeMw.slbb"
         }
+        self.child = {
+            "name": "test 1",
+}
         return super().setUp()
     def tearDown(self):
         return super().tearDown
