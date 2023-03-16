@@ -16,9 +16,9 @@ class TestViews(TestSetUp):
         self.assertEqual(res.status_code,200)
 
     def test_user_can_login_and_logout(self):
-        register_response = self.client.post(self.register_url,self.user_data, format='json') 
-        key = register_response.data['key']        
-        res = self.client.post(self.logout_url)            
+        register_response = self.client.post(self.register_url,self.user_data, format='json')          
+        key = register_response.data['access_token']        
+        res = self.client.post(self.logout_url)
         self.assertEqual(res.status_code,200)
 
     def test_user_can_login_create_child(self):

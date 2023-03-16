@@ -33,7 +33,7 @@ const Navbar = ({user}) => {
         ) : (
         <div className='ftm__navbar-sign'>
           <p><Link to="login">Sign in</Link></p>
-          <button type="button">Sign up</button>
+          <button type="button"><Link to="register">Sign up</Link></button>
         </div>
         )
       }                  
