@@ -10,6 +10,9 @@ from .models import User
 import json
 import requests
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
+from dj_rest_auth.social_serializers import TwitterLoginSerializer
 from rest_auth.registration.views import SocialLoginView
 from rest_framework import generics
 from .models import Task, Child, Badge, Reward
@@ -18,6 +21,16 @@ from .serializers import ChildSerializer
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
 # endregion Google
+#region Facebook
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
+#endregion Facebook
+
+#region Twitter
+class TwitterLogin(SocialLoginView):
+    serializer_class = TwitterLoginSerializer
+    adapter_class = TwitterOAuthAdapter
+#endregion Twitter
 
 # region Task
 
@@ -42,3 +55,7 @@ class ChildDetail(generics.RetrieveAPIView):
 class ChildDelete(generics.DestroyAPIView):
     pass
 # endregion Child
+
+# region Task
+
+# endregion Task

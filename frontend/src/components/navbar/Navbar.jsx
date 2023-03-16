@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { RiMenu3Line, RiCloseLin, RiCloseLine} from 'react-icons/ri';
 import './navbar.css';
 import logo from '../../assets/FTM_LOGO.png';
+import { Link } from 'react-router-dom';
 
 const Menu = () => (
   <>
-  <p><a href='#home'>Home</a></p>
-  <p><a href='#chores'>Chores</a></p>
+  <p><Link to="/">Home</Link></p>
+  <p><Link to="/task"> Tasks</Link></p>
   <p><a href='#rewards'>Rewards</a></p>
   <p><a href='#children'>Childen</a></p>
   <p><a href='#badges'>Badges</a></p>
   </>
 )
-const Navbar = () => {
+const Navbar = ({user}) => {
   const [toggleMenu, setToggleMenu] = useState(false);
   return (
     <div className='ftm__navbar'>
@@ -23,11 +24,19 @@ const Navbar = () => {
         <div className='ftm__navbar-links_container'>
           <Menu />
         </div>
-      </div>
-      <div className='ftm__navbar-sign'>
-        <p>Sign in</p>
-        <button type="button">Sign up</button>
-      </div>
+      </div>{
+        user ? (
+        <div className='ftm__navbar-sign'>
+          <p>Giancarlo</p>
+          <button type='button'>Logout</button>
+        </div>
+        ) : (
+        <div className='ftm__navbar-sign'>
+          <p><Link to="login">Sign in</Link></p>
+          <button type="button">Sign up</button>
+        </div>
+        )
+      }                  
       <div className='ftm__navbar-menu'>
         {toggleMenu
         ? <RiCloseLine color='#fff' size={27} onClick={() => setToggleMenu(false)} />

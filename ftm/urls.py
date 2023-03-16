@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import permissions
+from django.views.generic import RedirectView, TemplateView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -12,21 +13,32 @@ schema_view = get_schema_view(
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="me@gmarte.com"),
       license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+   )   
 )
 
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')), # oauth config
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path("", include("tasks.urls")),
-    re_path('api/api.json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('accounts/', include('allauth.urls')), # oauth config
+#     path('rest-auth/', include('rest_auth.urls')),
+#     path('rest-auth/registration/', include('rest_auth.registration.urls')),
+#     path("", include("tasks.urls")),
+#     re_path('api/api.json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+#     re_path('api/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+#     re_path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),   
+# ]
+
+urlpatterns = [    
+    # this url is used to generate email content
+
+    re_path(r'^dj-rest-auth/', include('dj_rest_auth.urls')),
+    re_path(r'^dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    re_path(r'^account/', include('allauth.urls')),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^accounts/profile/$', RedirectView.as_view(url='/', permanent=True), name='profile-redirect'),
+    path("", include("tasks.urls")),    
     re_path('api/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    re_path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),   
+    re_path(r'^docs/$', schema_view.with_ui('swagger', cache_timeout=0), name='api_docs')
 ]
 
 # region res_auth.urls

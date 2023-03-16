@@ -5,18 +5,27 @@
   padding: 2rem 6rem;
 }
 
-.ftm__login-hero{
+.ftm__login-social{
   flex: 1;
   display: flex;    
   justify-content: flex-start;
   align-items: center;    
 }
 
-.ftm__login-hero_image{
+.ftm__login-social{
   margin-right: 2rem;
 }
 
-.ftm__login-hero_image img{
-  width: 480.00px;
-  height: 480.00px;
+.ftm__login-social svg{
+  width: 40.00px;
+  height: 40.00px;
+}
+.ftm__login-social div{
+  flex: 1;
+  max-width: 50px;
+  min-width: 20px;
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

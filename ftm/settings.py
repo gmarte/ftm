@@ -28,15 +28,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', # required for serving swagger ui's css/js files
     'tasks',    
     'rest_framework',
-    'rest_framework.authtoken',    
-    'rest_auth',
+    'rest_framework.authtoken',  
+    'dj_rest_auth',    
     'import_export',         
     'django.contrib.sites',    
     'allauth',    
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'rest_auth.registration',        
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'dj_rest_auth.registration',        
     'drf_yasg',    
     'corsheaders'
 ]
@@ -92,6 +94,15 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',    
 ]
 
+REST_AUTH = {
+    'SESSION_LOGIN': True,
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'auth',
+    'JWT_AUTH_HTTPONLY': False,
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 #Whitelisting React fronend
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
@@ -100,11 +111,12 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 AUTH_USER_MODEL = "tasks.User"
