@@ -97,7 +97,7 @@ AUTHENTICATION_BACKENDS = [
 REST_AUTH = {
     'SESSION_LOGIN': True,
     'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'auth',
+    'JWT_AUTH_COOKIE': 'ftm',
     'JWT_AUTH_HTTPONLY': False,
 }
 

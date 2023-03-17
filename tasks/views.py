@@ -17,6 +17,8 @@ from rest_auth.registration.views import SocialLoginView
 from rest_framework import generics
 from .models import Task, Child, Badge, Reward
 from .serializers import ChildSerializer
+from rest_framework.permissions import IsAuthenticated
+
 #region Google
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
@@ -40,6 +42,8 @@ class TwitterLogin(SocialLoginView):
 class ChildList(generics.ListCreateAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
+    permission_classes = (IsAuthenticated,)
+
 
     def get_queryset(self):
         return Child.objects.filter(parent=self.request.user)
@@ -49,6 +53,7 @@ class ChildList(generics.ListCreateAPIView):
 class ChildDetail(generics.RetrieveAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         return Child.objects.filter(parent=self.request.user)
