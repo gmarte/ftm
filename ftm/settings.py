@@ -103,6 +103,8 @@ REST_AUTH = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+CORS_ALLOW_CREDENTIALS = True
+
 #Whitelisting React fronend
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',

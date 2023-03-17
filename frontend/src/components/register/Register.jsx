@@ -28,7 +28,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className='ftm__register-container section__padding'>
       <h1>Register</h1>
       {error && <div>{JSON.stringify(error)}</div>}
       <form onSubmit={handleSubmit}>
