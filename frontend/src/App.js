@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Children } from 'react'
 
 import { Footer, Header, Dashboard, Brand } from './containers';
 import { Task, Navbar, Badge, Login, Register } from './components';
@@ -16,6 +16,7 @@ const App = () => {
           <Route path='/' element={<Header />} />
           <Route path='/login' element={ user ? <Navigate to='/' /> : <Login />} />
           <Route path='/register' element={ user ? <Navigate to='/' /> : <Register />} />
+          <Route path='/children' element={ !user ? <Navigate to='/login' /> : <Children />} />
         </Routes>    
       </div>     
       {/* <Login />         */}

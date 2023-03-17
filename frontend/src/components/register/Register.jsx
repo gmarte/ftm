@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <div>
       <h1>Register</h1>
-      {error && <div>{error}</div>}
+      {error && <div>{JSON.stringify(error)}</div>}
       <form onSubmit={handleSubmit}>
       <div>
           <label htmlFor="username">Username:</label>

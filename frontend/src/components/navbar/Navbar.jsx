@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 
 const Menu = () => (
   <>
-  <p><Link to="/">Home</Link></p>
+  <p><Link to="/">Home</Link></p> 
+  <p><Link to='/children'>Childen</Link></p>
   <p><Link to="/task"> Tasks</Link></p>
-  <p><a href='#rewards'>Rewards</a></p>
-  <p><a href='#children'>Childen</a></p>
-  <p><a href='#badges'>Badges</a></p>
+  <p><Link to='/reward'>Rewards</Link></p>  
+  <p><Link to='/badge'>Badges</Link></p>
   </>
 )
 const Navbar = ({user}) => {
