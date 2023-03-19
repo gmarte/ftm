@@ -1,23 +1,25 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { FaTwitter, FaFacebookSquare } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './login.css';
-import AuthContext from "../../context/AuthProvider";
+import useAuth from '../../hooks/useAuth';
 
 
 import axios from '../../api/axios';
 const LOGIN_URL = '/dj-rest-auth/login/';
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const userRef = useRef();
   const errRef = useRef();
   
   const [ username, setUser ] =  useState('');
   const [ password, setPwd ] =  useState('');
-  const [errMsg, setErrMsg] = useState('');
-  const [ success, setSuccess ] = useState(false);
+  const [ errMsg, setErrMsg] = useState('');  
 
   useEffect(() => {
     userRef.current.focus();
@@ -29,7 +31,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username,password);
+    // console.log(username,password);
 
     try {
       const response = await axios.post(LOGIN_URL,
@@ -40,13 +42,16 @@ const Login = () => {
           }
       );
             console.log(JSON.stringify(response?.data));            
-            const accessToken = response?.data?.access_token;
-            const roles = response?.data?.roles;
-            setAuth({ username, password, roles, accessToken });
+            const access_token = response?.data?.access_token;
+            const refresh_token = response?.data?.refresh_token;
+            // const roles = response?.data?.roles;
+            localStorage.setItem("auth", JSON.stringify(response?.data));
+            setAuth({ username, password, access_token, refresh_token });
             setUser('');
             setPwd('');
-            setSuccess(true);
+            navigate(from, { replace: true});
         } catch (err) {
+            console.log(err);
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
@@ -60,41 +65,10 @@ const Login = () => {
         }
   }
 
-  // function onSubmit(e) {
-  //    e.preventDefault();
-  //   return fetch('http://localhost:8000/dj-rest-auth/login/', {
-  //     method: 'POST',
-  //     credentials: 'omit',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //     },
-  //     body:  JSON.stringify({username, password})
-  //   }).then(resp => resp.json()).then(data => {
-  //     changeResponse(data)
-  //   }).catch(error => console.log('error ->', error))
-  // }
-
-  return (
-    <> 
-    { success ? (
-      <section>
-      <h1>You are logged in!</h1>
-      <br />
-      <p>
-          <Link to="/">Go to Home</Link>
-      </p>
-      </section>
-    )
-    :(
-    <div className="ftm__login">      
-        <h1>
-          Login
-        </h1>
-        <div>
-          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-        </div>
-        <div className='ftm__login'>
+  return (   
+    <div className="ftm__login section__padding">      
+        <div className='ftm__login-container'>
+        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor='username'>Username:</label>
@@ -123,7 +97,7 @@ const Login = () => {
           <p>
             Need an Account? <br />
             <span className='line'>
-              <Link to="register">Sign up</Link>
+              <Link to="/register">Sign up</Link>
             </span>
           </p>
           <div className="ftm__login-social section__padding">
@@ -138,10 +112,7 @@ const Login = () => {
           </div>
         </form>
         </div>      
-    </div>
-    )
-    }
-    </>
+    </div>   
   );
 }
 

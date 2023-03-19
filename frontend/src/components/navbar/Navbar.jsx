@@ -3,6 +3,7 @@ import { RiMenu3Line, RiCloseLin, RiCloseLine} from 'react-icons/ri';
 import './navbar.css';
 import logo from '../../assets/FTM_LOGO.png';
 import { Link } from 'react-router-dom';
+// import useAuth from '../../hooks/useAuth';
 
 const Menu = () => (
   <>
@@ -13,7 +14,10 @@ const Menu = () => (
   <p><Link to='/badge'>Badges</Link></p>
   </>
 )
-const Navbar = ({user}) => {
+
+// const { auth } = useAuth();
+
+const Navbar = () => {    
   const [toggleMenu, setToggleMenu] = useState(false);
   return (
     <div className='ftm__navbar'>
@@ -24,10 +28,11 @@ const Navbar = ({user}) => {
         <div className='ftm__navbar-links_container'>
           <Menu />
         </div>
-      </div>{
-        user ? (
+      </div>
+      {/* {
+        auth?.username ? (
         <div className='ftm__navbar-sign'>
-          <p>Giancarlo</p>
+          <p>{auth?.username}</p>
           <button type='button'>Logout</button>
         </div>
         ) : (
@@ -36,7 +41,7 @@ const Navbar = ({user}) => {
           <button type="button"><Link to="register">Sign up</Link></button>
         </div>
         )
-      }                  
+      }                   */}
       <div className='ftm__navbar-menu'>
         {toggleMenu
         ? <RiCloseLine color='#fff' size={27} onClick={() => setToggleMenu(false)} />

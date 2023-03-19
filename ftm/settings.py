@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,7 +42,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'dj_rest_auth.registration',        
     'drf_yasg',    
-    'corsheaders'
+    'corsheaders',
+    'rest_framework_simplejwt'
 ]
 
 SITE_ID = 1
@@ -87,19 +90,12 @@ DATABASES = {
     }
 }
 
-AUTHENTICATION_BACKENDS = [    
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',    
-]
-
-REST_AUTH = {
-    'SESSION_LOGIN': True,
-    'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'ftm',
-    'JWT_AUTH_HTTPONLY': False,
-}
+# AUTHENTICATION_BACKENDS = [    
+#     # Needed to login by username in Django admin, regardless of `allauth`
+#     'django.contrib.auth.backends.ModelBackend',
+#     # `allauth` specific authentication methods, such as login by e-mail
+#     'allauth.account.auth_backends.AuthenticationBackend',    
+# ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -113,12 +109,35 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    'DEFAULT_AUTHENTICATION_CLASSES': (        
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'ROTATE_REFRESH_TOKENS': True,
+#     # 'BLACKLIST_AFTER_ROTATION': False,
+#     # 'ALGORITHM': 'HS256',
+#     # 'SIGNING_KEY': SECRET_KEY,
+#     # 'VERIFYING_KEY': None,
+#     # 'AUTH_HEADER_TYPES': ('JWT',),
+#     # 'USER_ID_FIELD': 'id',
+#     # 'USER_ID_CLAIM': 'user_id',
+#     # # 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+#     # 'TOKEN_TYPE_CLAIM': 'token_type',
+# }
+
+REST_AUTH = {
+    # 'SESSION_LOGIN': True,
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'accessToken',
+    'JWT_AUTH_REFRESH_COOKIE': 'refreshToken',
+    'JWT_AUTH_HTTPONLY': False,
 }
 
 AUTH_USER_MODEL = "tasks.User"

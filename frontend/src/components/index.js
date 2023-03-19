@@ -5,3 +5,6 @@ export { default as Login } from './login/Login';
 export { default as Register } from './register/Register';
 export { default as Children } from './children/Children';
 export { default as Reward } from './reward/Reward';
+export { default as RequireAuth } from './requireAuth/RequireAuth';
+export { default as PersistLogin } from './persist/PersistLogin';
+export { default as Layout } from './layout/Layout';
