@@ -111,32 +111,32 @@ CORS_ORIGIN_WHITELIST = (
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (        
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-#     'ROTATE_REFRESH_TOKENS': True,
-#     # 'BLACKLIST_AFTER_ROTATION': False,
-#     # 'ALGORITHM': 'HS256',
-#     # 'SIGNING_KEY': SECRET_KEY,
-#     # 'VERIFYING_KEY': None,
-#     # 'AUTH_HEADER_TYPES': ('JWT',),
-#     # 'USER_ID_FIELD': 'id',
-#     # 'USER_ID_CLAIM': 'user_id',
-#     # # 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-#     # 'TOKEN_TYPE_CLAIM': 'token_type',
-# }
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    # 'BLACKLIST_AFTER_ROTATION': False,
+    # 'ALGORITHM': 'HS256',
+    # 'SIGNING_KEY': SECRET_KEY,
+    # 'VERIFYING_KEY': None,
+    # 'AUTH_HEADER_TYPES': ('JWT',),
+    # 'USER_ID_FIELD': 'id',
+    # 'USER_ID_CLAIM': 'user_id',
+    # # 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    # 'TOKEN_TYPE_CLAIM': 'token_type',
+}
 
 REST_AUTH = {
     # 'SESSION_LOGIN': True,
     'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'accessToken',
-    'JWT_AUTH_REFRESH_COOKIE': 'refreshToken',
+    'JWT_AUTH_COOKIE': 'access_token',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh_token',
     'JWT_AUTH_HTTPONLY': False,
 }
 

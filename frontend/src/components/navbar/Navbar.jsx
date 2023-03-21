@@ -3,10 +3,8 @@ import { RiMenu3Line, RiCloseLin, RiCloseLine} from 'react-icons/ri';
 import './navbar.css';
 import logo from '../../assets/FTM_LOGO.png';
 import { Link, useNavigate } from 'react-router-dom';
+import useLogout from '../../hooks/useLogout';
 import useAuth from '../../hooks/useAuth';
-import axios from '../../api/axios';
-
-const LOGOUT_URL = '/dj-rest-auth/logout/';
 
 const Menu = () => (
   <>
@@ -18,25 +16,16 @@ const Menu = () => (
   </>
 )
 
-// const { auth } = useAuth();
 
-const Navbar = () => {    
-  const { auth, setAuth } = useAuth();    
+const Navbar = () => {      
+  const { auth } = useAuth();
   const navigate = useNavigate();
+  const logout = useLogout();
   const [toggleMenu, setToggleMenu] = useState(false);
 
-  const logout = async () => {
-    try {
-      const response = await axios.post(LOGOUT_URL,
-          {
-              headers: { 'Content-Type': 'application/json' },
-              withCredentials: true
-          }
-      );
-        }finally{                    
-        }    
-        setAuth({});
-        navigate('/');
+  const signOut = async () => {
+    await logout();
+    navigate('/');
   }
   return (
     <div className='ftm__navbar'>
@@ -52,7 +41,7 @@ const Navbar = () => {
         auth?.username ? (
         <div className='ftm__navbar-sign'>
           <p>{auth?.username}</p>
-          <button type='button' onClick={logout}>Logout</button>
+          <button type='button' onClick={signOut}>Logout</button>
         </div>
         ) : (
         <div className='ftm__navbar-sign'>

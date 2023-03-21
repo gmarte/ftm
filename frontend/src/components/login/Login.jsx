@@ -44,8 +44,7 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));            
             const access_token = response?.data?.access_token;
             const refresh_token = response?.data?.refresh_token;
-            // const roles = response?.data?.roles;
-            localStorage.setItem("myAuthData", JSON.stringify(response?.data));
+            // const roles = response?.data?.roles;            
             setAuth({ username, password, access_token, refresh_token });
             setUser('');
             setPwd('');
