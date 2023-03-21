@@ -45,7 +45,7 @@ const Login = () => {
             const access_token = response?.data?.access_token;
             const refresh_token = response?.data?.refresh_token;
             // const roles = response?.data?.roles;
-            localStorage.setItem("auth", JSON.stringify(response?.data));
+            localStorage.setItem("myAuthData", JSON.stringify(response?.data));
             setAuth({ username, password, access_token, refresh_token });
             setUser('');
             setPwd('');

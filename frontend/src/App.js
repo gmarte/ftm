@@ -5,7 +5,7 @@ import { Task, Navbar, Children, Badge, Login, Register,Reward, Layout, RequireA
 
 const App = () => {  
   return (      
-    <div className='App'>      
+    // <div className='App'>      
       <div className='gradient__bg'>                        
         <Navbar />  
         <Routes>            
@@ -26,11 +26,11 @@ const App = () => {
             </Route>
           </Route>
           {/* catch all */}                                       
-        </Routes>          
-        </div>     
+        </Routes>  
         <Brand />     
-      <Footer />
-        </div>    
+      <Footer />        
+        </div>           
+        // </div>
   )
 }
 
