@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './register.css';
-import axios from 'axios';
+import axios from '../../api/axios';
+
+const REGISTER_URL = '/dj-rest-auth/registration/'
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +22,10 @@ const Register = () => {
     event.preventDefault();
     setError(null);
     try {
-      const response = await axios.post('http://localhost:8000/dj-rest-auth/registration/', formData);
+      const response = await axios.post(REGISTER_URL, formData,{
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
+      });
       console.log(response);
     } catch (error) {
       setError(error.response.data);
