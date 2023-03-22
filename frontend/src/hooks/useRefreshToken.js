@@ -3,22 +3,22 @@ import useAuth from "./useAuth"
 const REFRESH_URL = '/dj-rest-auth/token/refresh/'
 
 const useRefreshToken = () => {    
-    const { setAuth } = useAuth();    
+    const { auth, setAuth } = useAuth();        
 
     const refresh = async () => {
+        console.log(`refresh token ${auth?.refresh_token}`);
         const response = await axios.post(REFRESH_URL,
         {
-            withCredentials: true
+            refresh: auth?.refresh_token
         });
         setAuth(prev => {
             console.log(JSON.stringify(prev))
-            console.log(response.data.access_token);
+            console.log(`new token: ${response.data.access}`);
             return{ 
                 ...prev,
-                access_token: response.data.access_token,
-                refresh_token: response.data.refresh_token}
+                access_token: response.data.access}
         });
-        return response.data.access_token;
+        return response.data.access;
     }
   return refresh;
 }

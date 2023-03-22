@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './register.css';
 import axios from '../../api/axios';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const REGISTER_URL = '/dj-rest-auth/registration/'
 
 const Register = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/login";
+  const userRef = useRef();
   const [formData, setFormData] = useState({
     username: '',  
     email: '',  
     password1: '',
     password2: '',
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const [ username, setUser ] =  useState('');
+  const [ email, setEmail ] =  useState('');
+  const [ password1, setPwd1 ] =  useState('');
+  const [ password2, setPwd2 ] =  useState('');
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
+
+  useEffect(() => {
+    setError('');
+  }, [username, email, password1, password2])  
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -25,8 +43,9 @@ const Register = () => {
       const response = await axios.post(REGISTER_URL, formData,{
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
-      });
+      });      
       console.log(response);
+      navigate(from, { replace: true});
     } catch (error) {
       setError(error.response.data);
     }
@@ -39,7 +58,7 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
       <div>
           <label htmlFor="username">Username:</label>
-          <input type="username" name="username" id="username" required value={formData.username} onChange={handleInputChange} />
+          <input type="username" ref={userRef} name="username" id="username" required value={formData.username} onChange={handleInputChange} />
        </div>     
        <div>
           <label htmlFor="email">Email:</label>

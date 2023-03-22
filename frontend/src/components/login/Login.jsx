@@ -10,7 +10,7 @@ import axios from '../../api/axios';
 const LOGIN_URL = '/dj-rest-auth/login/';
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -45,7 +45,8 @@ const Login = () => {
             const access_token = response?.data?.access_token;
             const refresh_token = response?.data?.refresh_token;
             // const roles = response?.data?.roles;            
-            setAuth({ username, password, access_token, refresh_token });
+            setAuth({ username, password, access_token, refresh_token });            
+            localStorage.setItem('auth', JSON.stringify({username, access_token, refresh_token}));
             setUser('');
             setPwd('');
             navigate(from, { replace: true});
