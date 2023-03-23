@@ -5,12 +5,17 @@ const REFRESH_URL = '/dj-rest-auth/token/refresh/'
 const useRefreshToken = () => {    
     const { auth, setAuth } = useAuth();        
 
-    const refresh = async () => {
+    const refresh = async () => {        
         console.log(`refresh token ${auth?.refresh_token}`);
+        console.log(auth);
         const response = await axios.post(REFRESH_URL,
         {
             refresh: auth?.refresh_token
-        });
+        },
+        {
+            withCredentials: true
+        }
+        );
         setAuth(prev => {
             console.log(JSON.stringify(prev))
             console.log(`new token: ${response.data.access}`);

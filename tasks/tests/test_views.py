@@ -24,10 +24,12 @@ class TestViews(TestSetUp):
     def test_user_can_login_create_child(self):
         self.client.post(self.register_url,self.user_data, format='json') 
         res = self.client.post(self.login_url, self.user_data, format='json')
+        key = res.data['access_token']
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + key)        
         self.client.post(self.createlist_child, self.child, format='json')
         self.client.post(self.createlist_child, self.child, format='json')
         self.assertEqual(res.status_code,200)
-        child_get = self.client.get(self.createlist_child, format='json')
-        child_name = child_get.data[0]['name']
+        child_get = self.client.get(self.createlist_child, format='json')        
+        child_name = child_get.data[0]['name']        
         self.assertEqual(child_name, self.child['name'])
 

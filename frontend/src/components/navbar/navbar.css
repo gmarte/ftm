@@ -56,9 +56,8 @@
     cursor: pointer;
 
 }
-.ftm_navbar-menu{
+.ftm__navbar-menu{
     margin-left: 1rem;
-
     display: none;
     position: relative;
 }
