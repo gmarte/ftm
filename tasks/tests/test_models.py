@@ -1,5 +1,7 @@
 from django.test import TestCase
 from .test_setup import TestSetUp
+from django.utils import timezone
+
 
 # Create your tests here.
 from django.urls import reverse
@@ -19,10 +21,13 @@ class ModelsTest(TestSetUp):
             parent=self.user
         )
         self.task = Task.objects.create(
-            name='Test Task',
-            points=10,
-            assigned_to=self.child,
-            is_recurring=False
+            name='Test Recurring Task',
+            points=20,
+            description='This is a test recurring task',
+            due_date=timezone.now().date(),
+            is_recurring=True,
+            recurrence_days='monday, wednesday, friday',
+            parent=self.user
         )
         self.weekly_completion = WeeklyTaskCompletion.objects.create(
             task=self.task,
@@ -57,3 +62,46 @@ class ModelsTest(TestSetUp):
 
     def test_reward_str(self):
         self.assertEqual(str(self.reward), self.reward.name)
+
+    def test_is_recurring_on_today(self):
+        # Test that the task is recurring on Monday
+        monday_task = self.task
+        monday_task.due_date = timezone.datetime(2023, 2, 6, tzinfo=timezone.utc).date()  # Monday
+        monday_task.save()
+        self.assertTrue(monday_task.is_recurring_on_today())
+
+        # Test that the task is recurring on Wednesday
+        wednesday_task = self.task
+        wednesday_task.due_date = timezone.datetime(2023, 2, 8, tzinfo=timezone.utc).date()  # Wednesday
+        wednesday_task.save()
+        self.assertTrue(wednesday_task.is_recurring_on_today())
+
+        # Test that the task is recurring on Friday
+        friday_task = self.task
+        friday_task.due_date = timezone.datetime(2023, 2, 10, tzinfo=timezone.utc).date()  # Friday
+        friday_task.save()
+        self.assertTrue(friday_task.is_recurring_on_today())
+
+        # Test that the task is not recurring on Tuesday
+        tuesday_task = self.task
+        tuesday_task.due_date = timezone.datetime(2023, 2, 7, tzinfo=timezone.utc).date()  # Tuesday
+        tuesday_task.save()
+        self.assertFalse(tuesday_task.is_recurring_on_today())
+
+        # Test that the task is not recurring on Thursday
+        thursday_task = self.task
+        thursday_task.due_date = timezone.datetime(2023, 2, 9, tzinfo=timezone.utc).date()  # Thursday
+        thursday_task.save()
+        self.assertFalse(thursday_task.is_recurring_on_today())
+
+        # Test that the task is not recurring on Saturday
+        saturday_task = self.task
+        saturday_task.due_date = timezone.datetime(2023, 2, 11, tzinfo=timezone.utc).date()  # Saturday
+        saturday_task.save()
+        self.assertFalse(saturday_task.is_recurring_on_today())
+
+        # Test that the task is not recurring on Sunday
+        sunday_task = self.task
+        sunday_task.due_date = timezone.datetime(2023, 2, 12, tzinfo=timezone.utc).date()  # Sunday
+        sunday_task.save()
+        self.assertFalse(sunday_task.is_recurring_on_today())

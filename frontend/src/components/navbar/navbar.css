@@ -1,0 +1,116 @@
+.ftm__navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem 6rem;
+}
+
+.ftm__navbar-links{
+    flex: 1;
+    display: flex;    
+    justify-content: flex-start;
+    align-items: center;    
+}
+.ftm__navbar-links_logo{
+    margin-right: 2rem;
+}
+.ftm__navbar-links_logo img{
+    width: 80.00px;
+    height: 80.00px;
+}
+
+.ftm__navbar-links_container {
+    display: flex;
+    flex-direction: row;    
+}
+.ftm__navbar-sign {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;    
+}
+.ftm__navbar-links_container p,
+.ftm__navbar-sign p,
+.ftm__navbar-menu_container p{
+    color: #FFF;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    text-transform: capitalize;
+
+    margin: 0 1rem;
+    cursor: pointer;
+}
+.ftm__navbar-sign button,
+.ftm__navbar-menu_container button{
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background: #3FAC51;    
+    border-radius: 5px;
+    font-family: (--font-family);
+    font-size: 18px;
+    line-height: 25px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+
+}
+.ftm__navbar-menu{
+    margin-left: 1rem;
+    display: none;
+    position: relative;
+}
+.ftm__navbar-menu svg {
+    cursor: pointer;
+}
+.ftm__navbar-menu_container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+
+    text-align: end;
+    background: var(--color-footer);
+    padding: 2rem;
+    position: absolute;
+    right: 0;
+    top: 80px;    
+    margin-top: 1rem;
+    min-width: 210px;
+    border-radius: 5px;
+    box-shadow: 0 0 5 rgba(234,182,14);
+}
+.ftm__navbar-menu_container p {
+    margin: 1rem 0;
+}
+.ftm__navbar-menu_container-links-sign{
+    display: none;
+}
+@media screen and (max-width: 1050px){
+    .ftm__navbar-links_container{
+        display: none;
+    }
+    .ftm__navbar-menu{
+        display: flex;
+    }
+}
+@media screen and (max-width: 700px){
+    .ftm__navbar{
+        padding: 2rem 4rem;
+    }
+}
+@media screen and (max-width: 550px){
+    .ftm__navbar{
+        padding: 2rem;
+    }
+    .ftm__navbar-sign{
+        display: none;
+    }
+    .ftm__navbar-menu_container{
+        top: 80px;
+    }
+    .ftm__navbar-menu_container-links-sign{
+        display: block;
+    }
+}

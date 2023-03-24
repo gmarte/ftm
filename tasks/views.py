@@ -10,65 +10,57 @@ from .models import User
 import json
 import requests
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
+from dj_rest_auth.social_serializers import TwitterLoginSerializer
 from rest_auth.registration.views import SocialLoginView
+from rest_framework import generics
+from .models import Task, Child, Badge, Reward
+from .serializers import ChildSerializer
+from rest_framework.permissions import IsAuthenticated
 
 #region Google
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
 # endregion Google
+#region Facebook
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
+#endregion Facebook
 
-# # region User
-# def login_view(request):
-#     if request.method == "POST":
-#         # Attempt to sign user in
-#         username = request.POST["username"]
-#         password = request.POST["password"]
-#         user = authenticate(request, username=username, password=password)
+#region Twitter
+class TwitterLogin(SocialLoginView):
+    serializer_class = TwitterLoginSerializer
+    adapter_class = TwitterOAuthAdapter
+#endregion Twitter
 
-#         # Check if authentication successful
-#         if user is not None:
-#             login(request, user)
-#             return redirect('index')
-#         else:
-#             return render(request, "promise_tracker/login.html", {
-#                 "message": "Invalid username and/or password."
-#             })
-#     else:
-#         return render(request, "tasks/login.html")
+# region Task
 
+# endregion Task
 
-# def logout_view(request):
-#     logout(request)
-#     return redirect('index')
+# region Child
+class ChildList(generics.ListCreateAPIView):
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = (IsAuthenticated,)
 
 
-# def register(request):
-#     if request.method == "POST":
-#         username = request.POST["username"]
-#         email = request.POST["email"]
+    def get_queryset(self):
+        return Child.objects.filter(parent=self.request.user)
+    def create(self, request, *args, **kwargs):
+        request.data['parent'] = request.user.pk
+        return super().create(request, *args, **kwargs)
+class ChildDetail(generics.RetrieveAPIView):
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = (IsAuthenticated,)
 
-#         # Ensure password matches confirmation
-#         password = request.POST["password"]
-#         confirmation = request.POST["confirmation"]
-#         if password != confirmation:
-#             return render(request, "tasks/register.html", {
-#                 "message": "Passwords must match."
-#             })
+    def get_queryset(self):
+        return Child.objects.filter(parent=self.request.user)
+class ChildDelete(generics.DestroyAPIView):
+    pass
+# endregion Child
 
-#         # Attempt to create new user
-#         try:
-#             user = User.objects.create_user(username, email, password)
-#             user.save()
-#         except IntegrityError:
-#             return render(request, "tasks/register.html", {
-#                 "message": "Username already taken."
-#             })
-#         login(request, user)
-#         return redirect("index")
-#     else:
-#         return render(request, "promise_tracker/register.html")
-# # endregion
+# region Task
 
-# Create your views here.
-def index(request):
-    return render(request, "tasks/index.html", {})
+# endregion Task

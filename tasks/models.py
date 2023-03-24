@@ -1,4 +1,5 @@
 import datetime
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
@@ -25,13 +26,42 @@ class Child(models.Model):
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=100)
-    points = models.PositiveIntegerField()
-    assigned_to = models.ForeignKey(Child, related_name='tasks', on_delete=models.CASCADE)    
+    name = models.CharField(max_length=255)
+    points = models.PositiveIntegerField(default=0)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    due_date = models.DateField()
+    is_completed = models.BooleanField(default=False)
     is_recurring = models.BooleanField(default=False)
+    recurrence_days = models.CharField(max_length=255, blank=True, null=True)
+    parent = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name + '('+str(self.points)+')'
+
+    def is_overdue(self):
+        return self.due_date < timezone.now().date()
+
+    def is_recurring_on_today(self):
+        if not self.is_recurring:
+            return False
+        weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        # today_weekday = weekdays[timezone.now().weekday()]        
+        today_weekday = weekdays[self.due_date.weekday()]        
+        return today_weekday in self.recurrence_days.lower()
+
+    class Meta:
+        ordering = ['-updated_at']
+
+# class Task(models.Model):
+#     name = models.CharField(max_length=100)
+#     points = models.PositiveIntegerField()
+#     assigned_to = models.ForeignKey(Child, related_name='tasks', on_delete=models.CASCADE)    
+#     is_recurring = models.BooleanField(default=False)
+
+#     def __str__(self):
+#         return self.name + '('+str(self.points)+')'
 
 
 class WeeklyTaskCompletion(models.Model):

@@ -1,8 +1,10 @@
 from rest_framework.test import APITestCase
 from django.urls import reverse
+from faker import Faker
 
 class TestSetUp(APITestCase):
     def setUp(self):
+        self.fake = Faker()
         self.register_url= reverse('rest_register')
         self.login_url = reverse('rest_login')
         self.password_reset_url = reverse('rest_password_reset')
@@ -10,7 +12,8 @@ class TestSetUp(APITestCase):
         self.logout_url = reverse('rest_logout')
         self.user_details_url = reverse('rest_user_details')
         self.rest_password_change_url = reverse('rest_password_change')
-        # region res_auth.urls
+        self.createlist_child = reverse('child_list')
+# region res_auth.urls
 # urlpatterns = [
 #     # URLs that do not require a session or valid token
 #     url(r'^password/reset/$', PasswordResetView.as_view(),
@@ -46,13 +49,16 @@ class TestSetUp(APITestCase):
 #         name='account_confirm_email'),
 # ]
 # endregion
-
+        password = self.fake.password()
         self.user_data = {
-            "username": "gizzy",
-            "password": "gizzy123",
-            "password1": "gizzy123",
-            "password2": "gizzy123",
-            "email": "sJN8UgPRPpgInL@sLxszDPLkLlbrvvwgQPAdZVbmeMw.slbb"
+            "username": self.fake.email().split('@')[0],
+            "password": password,
+            "password1": password,
+            "password2": password,
+            "email": self.fake.email()
+        }
+        self.child = {
+            "name": self.fake.name(),
         }
         return super().setUp()
     def tearDown(self):
