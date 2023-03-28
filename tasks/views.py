@@ -60,6 +60,8 @@ class ChildDelete(generics.DestroyAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
     permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        return Child.objects.filter(parent=self.request.user)
 # endregion Child
 
 # region Task
