@@ -43,22 +43,23 @@ class ChildList(generics.ListCreateAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
     permission_classes = (IsAuthenticated,)
-
-
-    def get_queryset(self):
-        return Child.objects.filter(parent=self.request.user)
+    def get_queryset(self):        
+        return Child.objects.filter(parent=self.request.user)    
     def create(self, request, *args, **kwargs):
         request.data['parent'] = request.user.pk
         return super().create(request, *args, **kwargs)
-class ChildDetail(generics.RetrieveAPIView):
+class ChildDetail(generics.RetrieveUpdateAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Child.objects.filter(parent=self.request.user)
+        return Child.objects.filter(parent=self.request.user)    
+
 class ChildDelete(generics.DestroyAPIView):
-    pass
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = [IsAuthenticated]
 # endregion Child
 
 # region Task

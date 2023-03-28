@@ -30,7 +30,6 @@ schema_view = get_schema_view(
 
 urlpatterns = [    
     # this url is used to generate email content
-
     re_path(r'^dj-rest-auth/', include('dj_rest_auth.urls')),
     re_path(r'^dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     re_path(r'^account/', include('allauth.urls')),
