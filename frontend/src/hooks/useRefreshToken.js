@@ -5,9 +5,7 @@ const REFRESH_URL = '/dj-rest-auth/token/refresh/'
 const useRefreshToken = () => {    
     const { auth, setAuth } = useAuth();        
 
-    const refresh = async () => {        
-        console.log(`refresh token ${auth?.refresh_token}`);
-        console.log(auth);
+    const refresh = async () => {              
         const response = await axios.post(REFRESH_URL,
         {
             refresh: auth?.refresh_token
