@@ -47,6 +47,7 @@ const Login = () => {
             // const roles = response?.data?.roles;            
             setAuth({ username, password, access_token, refresh_token });            
             localStorage.setItem('auth', JSON.stringify({username, access_token, refresh_token}));
+            // localStorage.setItem('auth', {username, access_token, refresh_token});
             setUser('');
             setPwd('');
             navigate(from, { replace: true});
