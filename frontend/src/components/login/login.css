@@ -76,3 +76,10 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #45a049;
 }
+
+.ftm__login-image{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

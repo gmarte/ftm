@@ -1,8 +1,49 @@
+.children-container {
+  margin-top: 2rem;
+}
+
 .newChildButton {
-    margin-bottom: 16px;
-  }
-  
-  .deleteButton {
-    color: #f44336;
-  }
-  
+  margin-bottom: 1rem;
+}
+
+.child-card {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--color-footer);
+  color: #fff;
+  font-family: var(--font-family);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.child-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.child-card-points {
+  display: flex;
+  align-items: center;
+}
+
+.child-card-points span {
+  margin-right: 0.5rem;
+}
+
+.deleteButton {
+  color: #000;
+}
+.ftm__child{
+  display: flex;    
+  flex-direction: row;
+}
+.ftm__child-content{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+
+  margin-right: 5rem;
+}

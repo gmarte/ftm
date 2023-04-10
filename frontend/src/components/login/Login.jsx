@@ -4,6 +4,7 @@ import { FaTwitter, FaFacebookSquare } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './login.css';
 import useAuth from '../../hooks/useAuth';
+import login from '../../assets/login.png'
 
 
 import axios from '../../api/axios';
@@ -68,7 +69,7 @@ const Login = () => {
 
   return (   
     <div className="ftm__login section__padding">      
-        <div className='ftm__login-container'>
+      <div className='ftm__login-container'>
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
         <form onSubmit={handleSubmit}>
           <div>
@@ -94,13 +95,14 @@ const Login = () => {
               required
             />
           </div>
-          <button type={'submit'}>Sign in</button>
+          <div><button type={'submit'}>Sign in</button>
           <p>
             Need an Account? <br />
             <span className='line'>
               <Link to="/register">Sign up</Link>
             </span>
           </p>
+          </div>
           <div className="ftm__login-social section__padding">
             <div>
               <FcGoogle />
@@ -112,8 +114,11 @@ const Login = () => {
             </div>
           </div>
         </form>
+        </div>
+        <div className="ftm__login-image">
+          <img src={login} alt="login"></img>
         </div>      
-    </div>   
+    </div>        
   );
 }
 
